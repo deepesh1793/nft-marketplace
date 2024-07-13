@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useAnchorWallet, useConnection } from '@solana/wallet-adapter-react';
 import { getProvider, getProgram } from '../utils/anchor';
 import { PublicKey } from '@solana/web3.js';
+import BN from 'bn.js';
 
 const Marketplace = () => {
     const [marketplace, setMarketplace] = useState(null);
@@ -33,15 +34,15 @@ const Marketplace = () => {
             const provider = getProvider(wallet);
             const program = getProgram(provider);
 
-            await program.rpc.list(new web3.BN(price), {
-                accounts: {
-                    maker: wallet.publicKey,
-                    marketplace: marketplace.publicKey,
-                    makerMint: new PublicKey(mintAddress),
-                    // ... other required accounts
-                },
-                signers: []
-            });
+            await program.methods.list(new BN(price))
+    .accounts({
+        maker: wallet.publicKey,
+        marketplace: marketplace.publicKey,
+        makerMint: new PublicKey(mintAddress),
+        // ... other required accounts
+    })
+    .signers([])
+    .rpc();
 
             fetchListings(program);
         } catch (error) {
