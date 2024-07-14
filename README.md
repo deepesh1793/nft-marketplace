@@ -33,7 +33,7 @@ This frontend interacts with a backend Solana program (`anchor_marketplace`) dep
 1. Clone the repository:
 
    ```bash
-   git clone [<repository-url>](https://github.com/deepesh1793/nft-marketplace.git)
+   git clone https://github.com/deepesh1793/nft-marketplace.git
    cd nft-marketplace
 2. Install dependencies:
 
